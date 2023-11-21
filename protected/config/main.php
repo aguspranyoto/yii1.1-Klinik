@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
+	'name'=>'Klinik',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -29,37 +29,15 @@ return array(
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 
-		'srbac' => array(
-			'userclass'=>'User', //default: User
-			'userid'=>'userid', //default: userid
-			'username'=>'username', //default:username
-			'delimeter'=>'@', //default:-
-			'debug'=>true, //default :false
-			'pageSize'=>10, // default : 15
-			'superUser' =>'Authority', //default: Authorizer
-			'css'=>'srbac.css', //default: srbac.css
-			'layout'=>
-			'application.views.layouts.main', //default: application.views.layouts.main,
-			//must be an existing alias
-			'notAuthorizedView'=> 'srbac.views.authitem.unauthorized', // default:
-			//srbac.views.authitem.unauthorized, must be an existing alias
-			'alwaysAllowed'=>array( //default: array()
-			'SiteLogin','SiteLogout','SiteIndex','SiteAdmin',
-			'SiteError', 'SiteContact'),
-			'userActions'=>array('Show','View','List'), //default: array()
-			'listBoxNumberOfLines' => 15, //default : 10
-			'imagesPath' => 'srbac.images', // default: srbac.images
-			'imagesPack'=>'noia', //default: noia
-			'iconText'=>true, // default : false
-			'header'=>'srbac.views.authitem.header', //default : srbac.views.authitem.header,
-			//must be an existing alias
-			'footer'=>'srbac.views.authitem.footer', //default: srbac.views.authitem.footer,
-			//must be an existing alias
-			'showHeader'=>true, // default: false
-			'showFooter'=>true, // default: false
-			'alwaysAllowedPath'=>'srbac.components', // default: srbac.components
-			// must be an existing alias
-		)
+		'srbac'=>array(
+		  	"userclass"=>"User",
+		  	"userid"=>"id",
+		  	"username"=>"username",
+		  	"debug"=>true,
+		  	"pageSize"=>10,
+		  	"superUser" =>"Authority",
+		  	"css"=>"css/srbac.css",
+		),
 		   
 
 		
@@ -72,25 +50,18 @@ return array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
-
-		'db'=>array(
-			'class'=>'CDbConnection',
-			'connectionString'=>'mysql:host=localhost;dbname=klinik',
-			'username'=>'root',
-			'password'=>'',
-		),
 		
+		// db
+		// database settings are configured in database.php
+		'db'=>require(dirname(__FILE__).'/database.php'),
+
+
+		// auth manager
 		'authManager'=>array(
-			// Path to SDbAuthManager in srbac module if you want to use case insensitive
-			//access checking (or CDbAuthManager for case sensitive access checking)
-			'class'=>'application.modules.srbac.components.SDbAuthManager',
-			// The database component used
+			'class'=>'CDbAuthManager',
 			'connectionID'=>'db',
-			// The itemTable name (default:authitem)
 			'itemTable'=>'items',
-			// The assignmentTable name (default:authassignment)
 			'assignmentTable'=>'assignments',
-			// The itemChildTable name (default:authitemchild)
 			'itemChildTable'=>'itemchildren',
 		),
 		   
@@ -106,9 +77,6 @@ return array(
 			),
 		),
 		*/
-
-		// database settings are configured in database.php
-		'db'=>require(dirname(__FILE__).'/database.php'),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

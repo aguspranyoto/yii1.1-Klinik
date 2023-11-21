@@ -39,22 +39,29 @@ class AuthitemController extends SBaseController {
    * @return Boolean true if user has the authority role
    */
   protected function beforeAction($action) {
-    
-    if (!$this->module->isInstalled() && $action->id != "install") {
-      $this->redirect(array("install"));
-      return false;
+
+    if($this->module->debug){
+
+      return true;
+
     }
 
-    if ($this->module->debug) {
-      return true;
-    }
-    if (Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ||
-      !Helper::isAuthorizer()) {
-      return true;
+
+    if( Yii::app()->user->checkAccess(Helper::findModule('srbac')->superUser) ||
+
+        !Helper::isAuthorizer()) {
+
+        return true;
+
     } else {
-      parent::beforeAction($action);
+
+        parent::beforeAction($action);
+
     }
-  }
+
+
+}
+
 
   /**
    * Assigns roles to a user
